@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <script src="../build/react.development.js"></script>
+    <script src="../build/react-dom.development.js"></script>
+    <script src="../build/prop-types.js"></script>
+    <script src="../build/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="example">
+    </div>
+    <script type="text/babel">
+        class Parent2 extends React.Component {
+            // { value: this.state.childContext, a: 'bbbbb' }
+            getChildContext() {
+                return { a: 'bbbbb' }
+            }
+
+            render() {
+                return this.props.children
+            }
+        }
+
+        Parent2.childContextTypes = {
+            a: PropTypes.string,
+        }
+
+        class Child2 extends React.Component {
+            render() {
+                return (
+                <p>
+                    childContext: {this.context.value} {this.context.a}
+                </p>
+                )
+            }
+        }
+
+        Child2.contextTypes = {
+            value: PropTypes.string,
+            a: PropTypes.string,
+        }
+
+
+        ReactDOM.render(
+            <Parent2>
+                <Child2/>
+            </Parent2>,
+            document.getElementById('example')
+        );
+        
+    
+
+    </script>
+  </body>
+</html>
