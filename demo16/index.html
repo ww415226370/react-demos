@@ -11,37 +11,29 @@
     <div id="example">
     </div>
     <script type="text/babel">
+        const Context = React.createContext('default')
+        const { Provider, Consumer } = Context;
         class Parent2 extends React.Component {
-            // { value: this.state.childContext, a: 'bbbbb' }
-            getChildContext() {
-                return { a: 'bbbbb', b: 'bss' }
+            state = {
+                childContext: '123',
+                newContext: '456',
             }
-
-            render() {
-                return this.props.children
-            }
-        }
-
-        Parent2.childContextTypes = {
-            a: PropTypes.string,
-            b:   PropTypes.string,
-        }
-
-        class Child2 extends React.Component {
+            
             render() {
                 return (
-                <p>
-                    childContext: {this.context.b} {this.context.a}
-                </p>
+                    <Provider value={this.state.newContext}>{this.props.children}</Provider>
                 )
             }
         }
 
-        Child2.contextTypes = {
-            // value: PropTypes.string,
-            a: PropTypes.string,
-        }
 
+        class Child2 extends React.Component {
+            render() {
+                return (
+                    <Consumer>{value => <p>newContext: {value}</p>}</Consumer>
+                )
+            }
+        }
 
         ReactDOM.render(
             <Parent2>
@@ -49,7 +41,6 @@
             </Parent2>,
             document.getElementById('example')
         );
-        
     
 
     </script>
