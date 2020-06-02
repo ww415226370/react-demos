@@ -12,26 +12,50 @@
     </div>
     <script type="text/babel">
         const P = () => {
-            const [name, setName] = React.useState('jokcy')
+            // const [name, setName] = React.useState('jokcy')
 
-            // React.useEffect(() => {
-            //     console.log('component update')
+            React.useEffect(() => {
+                console.log('component update')
 
-            //     return () => {
-            //     console.log('unbind')
-            //     }
-            // }, [])
-
+                return () => {
+                console.log('unbind')
+                }
+            }, [])
+            // setTimeout(() => {
+            //   console.log('setName');
+              
+            //   setName('jokcy1');
+            // }, 2000)
+              //<input type="text" value={name} onChange={e => setName(e.target.value)} />
             return (
                 <React.Fragment>
-                  <p>My Name is: {name}</p>
-                  <input type="text" value={name} onChange={e => setName(e.target.value)} />
+                  <p>My Name is</p>
+                  
                 </React.Fragment>
             )
         }
 
+        class A extends React.Component {
+          constructor(props) {
+            super(props)
+          }
+
+          state = {
+            opened: true
+          }
+
+          render() {
+            return (
+              <div>
+                <button onClick={() => this.setState({opened: !this.state.opened})}>toggle</button>
+                {this.state.opened ? <P/> : null}
+              </div>
+            )
+          }
+        }
+
         ReactDOM.render(
-            <P/>,
+            <A/>,
             document.getElementById('example')
         );
     
