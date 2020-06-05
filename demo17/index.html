@@ -46,8 +46,8 @@
 
           render() {
             return (
-              <div>
-                <button onClick={() => this.setState({opened: !this.state.opened})}>toggle</button>
+              <div onClickCapture={() => {console.log('div click')}}>
+                <button onClickCapture={() => {this.setState({opened: !this.state.opened})} }>toggle</button>
                 {this.state.opened ? <P/> : null}
               </div>
             )
