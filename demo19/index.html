@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <script src="../build/react.development.js"></script>
+    <script src="../build/react-dom.development.js"></script>
+    <script src="../build/prop-types.js"></script>
+    <script src="../build/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="example">
+    </div>
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        const usePerson = (personId) => {
+            const [loading, setLoading] = useState(true);
+            const [person, setPerson] = useState({});
+            useEffect(() => {
+                setLoading(true);
+                setTimeout(() => {
+                    setPerson({name: 'xiaoli'});
+                    setLoading(false);
+                }, 1000)
+            }, [personId]);  
+            return [loading, person];
+        };
+
+        const Person = ({ personId }) => {
+            const [loading, person] = usePerson(personId);
+
+            if (loading === true) {
+                return <p>Loading ...</p>;
+            }
+
+            return (
+                <div>
+                    <p>You're viewing: {person.name}</p>
+                    <p>Height: {person.height}</p>
+                    <p>Mass: {person.mass}</p>
+                </div>
+            );
+        };
+
+        ReactDOM.render(
+            <Person/>,
+            document.getElementById('example')
+        );
+    
+
+    </script>
+  </body>
+</html>
