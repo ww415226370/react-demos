@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <script src="../build/react.development.js"></script>
+    <script src="../build/react-dom.development.js"></script>
+    <script src="../build/prop-types.js"></script>
+    <script src="../build/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="example">
+    </div>
+    <script type="text/babel">
+        
+        const LazyComp = React.lazy(() => Promise.resolve({default:() => <p>Lazy Comp</p>}))
+
+        let data = ''
+        let promise = ''
+        function requestData() {
+            if (data) return data
+            if (promise) throw promise
+            promise = new Promise(resolve => {
+                setTimeout(() => {
+                    data = 'Data resolved'
+                    resolve()
+                }, 2000)
+            })
+            throw promise
+        }
+        
+        function SuspenseComp() {
+            const data = requestData()
+
+            return <p>{data}</p>
+        }
+
+
+        ReactDOM.render(
+            <React.Suspense fallback="loading data">
+                <LazyComp />
+                <SuspenseComp/>
+            </React.Suspense>,
+            document.getElementById('example')
+        );
+    
+
+    </script>
+  </body>
+</html>
