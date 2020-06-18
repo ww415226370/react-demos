@@ -18,8 +18,8 @@
             useEffect(() => {
                 setLoading(true);
                 setTimeout(() => {
-                    setPerson({name: 'xiaoli'});
                     setLoading(false);
+                    setPerson({name: 'xiaoli'});
                 }, 1000)
             }, [personId]);  
             return [loading, person];

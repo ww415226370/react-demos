@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <script src="../build/react.development.js"></script>
+    <script src="../build/react-dom.development.js"></script>
+    <script src="../build/prop-types.js"></script>
+    <script src="../build/babel.min.js"></script>
+    <style>
+        .square {
+            width: 40px;
+            height: 40px;
+            background-color: red;
+        }
+    </style>
+  </head>
+  <body>
+    <div id="example">
+    </div>
+    <script type="text/babel">
+        const { useRef, useEffect, useLayoutEffect } = React;
+        const Animate = () => {
+            const REl = useRef(null);
+            useLayoutEffect(() => {
+                /*下面这段代码的意思是当组件加载完成后,在0秒的时间内,将方块的横坐标位置移到600px的位置*/
+                REl.current.style.marginLeft = "20px";
+                
+            }, []);
+            return (
+                <div className='animate'>
+                    <div ref={REl} className="square">square</div>
+                </div>
+            );
+        };
+        
+        ReactDOM.render(
+            <Animate/>,
+            document.getElementById('example')
+        );
+    
+
+    </script>
+  </body>
+</html>
