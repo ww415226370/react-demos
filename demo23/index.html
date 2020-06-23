@@ -13,26 +13,42 @@
         constructor(props) {
           super(props)
           this.state = {
-            opacity: 1.0
+            opacity: 1.0,
+            a: 1
           };
+          this.changeNumber = this.changeNumber.bind(this);
         }
 
         componentDidMount() {
-          this.timer = setTimeout(function () {
-            var opacity = this.state.opacity;
-            opacity -= .05;
-            if (opacity < 0.1) {
-              opacity = 1.0;
-            }
+        //   this.timer = setTimeout(function () {
+        //     var opacity = this.state.opacity;
+        //     opacity -= .05;
+        //     if (opacity < 0.1) {
+        //       opacity = 1.0;
+        //     }
+        //     this.setState({
+        //       opacity: opacity
+        //     });
+        //     this.setState({
+        //         a: 2,
+        //         opacity: 0
+        //     });
+        //   }.bind(this), 100);
+        }
+
+        changeNumber () {
             this.setState({
-              opacity: opacity
+              opacity: 1
             });
-          }.bind(this), 100);
+            this.setState({
+                a: 2,
+                opacity: 0
+            });
         }
 
         render() {
           return (
-            <div style={{opacity: this.state.opacity}}>
+            <div style={{opacity: this.state.opacity}} onClick={this.changeNumber}>
               Hello {this.props.name}
               <Child { ...this.state }/>
             </div>
@@ -42,9 +58,55 @@
 
       class Child extends React.Component {
         constructor(props) {
-            console.log(props);
             super(props)
         }
+
+        componentWillMount() {
+            console.log('componentWillMount')
+        }
+
+        componentDidMount() {
+            console.log('componentDidMount')
+        }
+
+        componentWillUnmount() {
+            console.log('componentWillUnmount')
+        }
+
+        // 更新
+        componentWillReceiveProps (nextProps) {
+
+        }
+
+        shouldComponentUpdate(nextProps,nextState) {
+
+        }
+
+        componentWillUpdate (nextProps,nextState) {
+
+        }
+
+        componentDidUpdate(prevProps,prevState) {
+
+        }
+
+        // 更新
+
+        // 新增
+        static getDerivedStateFromProps(nextProps, prevState) {
+            if (nextProps.isLogin !== prevState.isLogin) {
+                return {
+                    isLogin: nextProps.isLogin,
+                };
+            }
+            return null;
+        }
+
+        getSnapshotBeforeUpdate(prevProps, prevState) {
+            console.log('getSnapshotBeforeUpdate')
+        }
+
+
 
         render() {
           return (
