@@ -48,10 +48,10 @@
 
         render() {
           return (
-            <div style={{opacity: this.state.opacity}} onClick={this.changeNumber}>
-              Hello {this.props.name}
+            // <div style={{opacity: this.state.opacity}}>
+            //   Hello {this.props.name}
               <Child { ...this.state }/>
-            </div>
+            // </div>
           );
         }
       }
